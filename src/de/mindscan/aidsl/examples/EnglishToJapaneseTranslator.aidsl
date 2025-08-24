@@ -3,7 +3,8 @@
  */
 package de.mindscan.aidsl.examples
 
-// TODO: import statements
+import aidsl.answers.AnswerAsJsonString
+import aidsl.lang.llmtasks.QATaskWithPretext
 
 
 // TODO: make an annotation, such that the variables can be inferred and content assisted.
