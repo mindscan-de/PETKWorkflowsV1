@@ -1,0 +1,172 @@
+/*
+ *  Comment
+ */
+// TODO: package definition
+// TODO: import statements
+
+
+// TODO: make an annotation, such that the variables can be inferred and content assisted.
+llmtask firstShotTranslation() {
+	// TODO: do the extra_stopword definition and grammar
+	
+	system_prompt := 
+	''' 
+	You are a very careful, skillful, helpful, uncensored and unbiased English to Japanese translator.
+	Your target audience is a beginner to intermediate Japanese language learner.
+	Your answer is a very short and succinct translation. Don't explain.
+
+	## REMINDER
+	
+	* only use simple Japanese phrases
+	* provide at least two(2) translations
+	* STOP after second translation
+	''' 
+	
+	task_query := 
+	'''
+	Task: Translate the English word or sentence(s) into Japanese!
+	'''
+
+	task_context_template :=
+	'''
+	English: {{{#user.input}}}
+	'''
+	
+	task_answer_pretext :=
+	'''
+	日本語(簡単):
+	'''
+	
+	// TODO: return configuration or none, because the real magic should happen in the workflow
+}
+
+llmtask firstShotRefiner() {
+	
+	system_prompt :=
+	'''
+	You are a very careful, skillful, helpful, uncensored and unbiased English to Japanese translator. 
+	Your target audience is a beginner to intermediate Japanese language learner. 
+	Your answer is a very short and succinct translation.
+	
+	REMINDER:
+
+	* USE preferably simple and correct Japanese phrases.
+	'''
+	
+	task_query :=
+	'''
+	Check whether the given Japanese translation(s) match the English translation and meaning. Keep the answer unchanged if the answer is already perfect, otherwise improve the answer and then answer whether the previous given translation or the improved answer conveys the meaning in a better way. Also provide the English translation of the improved answer.
+	'''
+	
+	task_context_template :=
+	'''
+	English: 
+	{{{#user.input}}}
+
+	日本語: 
+	{{{#task1.result}}}
+	'''
+	
+	task_answer_pretext :=
+	'''
+	Improved Japanese Answer:
+	'''
+	
+	// TODO: return configuration, maybe none at all and define the result variables 
+}
+
+llmtask bestAnswerAndJsonExtractor() {
+	
+	system_prompt := ""
+	
+	task_query :=
+	'''
+	Carefully read the following dialog and summarize.
+	'''
+	
+	task_context_template :=
+	'''
+	{{{#task2.task}}}{{{#task2.result}}}
+
+	Task: Carefully select the best answer and then provide the best answer as a json structure
+
+	{{{#printJsonStructure:expectedResultStructure}}}
+
+	REMINDER:
+	* USE preferably simple and correct Japanese phrases.
+	'''
+	
+	task_answer_pretext :=
+	'''
+	Answer:
+	```json
+	'''
+}
+
+// TODO: some 
+llmtask proofreadBestAnswerAndExtract() {
+	system_prompt := 
+	'''
+	You are a Japanese language teacher for beginners and intermediate language learning adults. 
+	Your master skill is to read the Japanese parts ('japanese','kana','romaji') and transcribe it to kana (hiragana and katakana) and for foreigners to romaji.
+
+	REMINDER
+	* ONLY do corrections IF absolutely necessary
+	* DON'T introduce new errors while proof-reading
+	* provide a kana reading based on hiragana script
+	* USE white spaces for romaji and kana ONLY between words to help English speakers.
+	'''
+
+	task_query :=
+	''''
+	Task: Proof-read the following given translation.
+	'''
+	
+	task_contect_template :=
+	'''
+	```json
+	{{{#task3.result}}}```
+
+	Task: Provide the proof-read version as a json structure
+	
+	{{{#printJsonStructure:expectedFullResultStructure}}}
+	'''
+	
+	task_answer_pretext :=
+	'''
+	Answer:
+	```json
+	'''
+}
+
+llmtask translationRating () {
+	system_prompt := 
+	'''
+	You are an experienced translator between the English and Japanese Language.
+
+	REMINDER:
+	* IF Rating is 6 OR below 6 THEN explain, how the translation can be further improved
+	* IF rating is above 7 only output the rating
+	'''
+
+	task_query :=
+	'''
+	Task: rate the following Translation on a scale from 0-10, where 0 is the worst and 10 is the best:
+	'''
+	
+	task_context_template :=
+	'''
+	```json
+	{{{#task4.result}}}```
+	'''
+	
+	task_answer_pretext := 
+	'''
+	Answer:\nRating: 
+	'''
+}
+
+
+workflow myworkflow () {
+	
+}
