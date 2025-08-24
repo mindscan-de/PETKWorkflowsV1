@@ -6,7 +6,9 @@
 
 
 // TODO: make an annotation, such that the variables can be inferred and content assisted.
-llmtask firstShotTranslation() {
+// annotations provide defaults for required and optional variables
+// annotations should provide info about return variables.
+llmtask firstShotTranslation() implements @QATaskWithPretext {
 	// TODO: do the extra_stopword definition and grammar
 	
 	system_prompt := 
@@ -40,7 +42,7 @@ llmtask firstShotTranslation() {
 	// TODO: return configuration or none, because the real magic should happen in the workflow
 }
 
-llmtask firstShotRefiner() {
+llmtask firstShotRefiner() implements @QATaskWithPretext {
 	
 	system_prompt :=
 	'''
@@ -75,7 +77,7 @@ llmtask firstShotRefiner() {
 	// TODO: return configuration, maybe none at all and define the result variables 
 }
 
-llmtask bestAnswerAndJsonExtractor() {
+llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJsonString {
 	
 	system_prompt := ""
 	
@@ -96,15 +98,23 @@ llmtask bestAnswerAndJsonExtractor() {
 	* USE preferably simple and correct Japanese phrases.
 	'''
 	
+	
+	/*
+	 * This should be implied by @AnswerAsJSonString
+	 */
+	 
+	/**
 	task_answer_pretext :=
 	'''
 	Answer:
 	```json
 	'''
+	*  
+	*/
 }
 
 // TODO: some 
-llmtask proofreadBestAnswerAndExtract() {
+llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAsJsonString {
 	system_prompt := 
 	'''
 	You are a Japanese language teacher for beginners and intermediate language learning adults. 
@@ -132,14 +142,21 @@ llmtask proofreadBestAnswerAndExtract() {
 	{{{#printJsonStructure:expectedFullResultStructure}}}
 	'''
 	
+	/*
+	 * This should be implied by @AnswerAsJSonString
+	 */
+	 
+	/**
 	task_answer_pretext :=
 	'''
 	Answer:
 	```json
 	'''
+	*  
+	*/
 }
 
-llmtask translationRating () {
+llmtask translationRating () implements @QATaskWithPretext {
 	system_prompt := 
 	'''
 	You are an experienced translator between the English and Japanese Language.
@@ -162,7 +179,8 @@ llmtask translationRating () {
 	
 	task_answer_pretext := 
 	'''
-	Answer:\nRating: 
+	Answer:
+	Rating: 
 	'''
 }
 
