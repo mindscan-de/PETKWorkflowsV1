@@ -1,6 +1,6 @@
 package aidsl.lang.llmtasks
 
-vmnode super QATasTsakWithPretext {
+vmnode super QATaskWithPretext {
 	
 	opcode "AITaskTemplate"
 	
