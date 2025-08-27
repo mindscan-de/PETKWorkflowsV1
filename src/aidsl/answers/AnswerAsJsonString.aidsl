@@ -1,11 +1,13 @@
 package aidsl.answers
 
 vmnode overlay AnswerAsJsonString {
-	override string task_answer_pretext =
+	// override the task_answer_pretext
+	override string task_answer_pretext :=
 	'''
 	Answer:
 	```json
 	'''
 	
+	// override theresult type
 	out result.llm.response.content as jsonstring
 }

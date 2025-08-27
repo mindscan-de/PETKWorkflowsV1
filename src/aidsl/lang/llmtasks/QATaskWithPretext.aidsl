@@ -11,6 +11,7 @@ vmnode super QATasTsakWithPretext {
 	
 	optional string short_task_header default ""
 	optional string version default ""
+	
 	// TODO
 	// optional array[string] extra_stopwords default []
 	
