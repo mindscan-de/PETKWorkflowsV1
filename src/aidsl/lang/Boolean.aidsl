@@ -1,0 +1,15 @@
+package aidsl.lang
+
+vmnode super Boolean {
+	opcode "BOOLEAN"
+	
+	in optional fromValue
+	
+	out true as boolean
+	out false as boolean
+	out not as boolean
+	out asBoolean as boolean
+	
+	// toString
+	// out
+}
