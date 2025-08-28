@@ -1,0 +1,50 @@
+package de.mindscan.aidsl.examples
+
+/**
+ * Generating unit tests was a use-case which i tried 2 years ago (2023) 
+ * and built an eclipse plugin for generating unit tests using the 
+ * PHIND-CodeLllama 34B model. 
+ * 
+ * I think using workflows can help to improve the generation...
+ */
+
+
+// TODO: input:langage=java
+// TODO: input:task.context=java source code
+// TODO: task_pretext=
+// @Test
+// public void testUNITTESTNAME() {
+// 		// arrange
+
+
+llmtask generateUnitest() {
+	system_prompt :=
+	'''
+	You are an expert in writing java code and junit4 based unit tests.
+	Your unit tests contain only one assertion for each test and use fluent assertions using the hamcrest library for fluent assertions (\"assertThat\").
+	All unit tests conform to the AAA pattern and spell each arrange, act and assert section out as a comment in the test.
+  	Don't use any setUp-method because it is shared initialization. 
+	Do not annotate methods with @Before. 
+	Do all setup in the test itself.
+	Do not explain. 
+	'''
+	
+	task_query :=
+	'''
+	complete the unit test and add missing unit test
+	'''
+	
+	// This is the area, where the shortened Source Code provided
+	task_context_template :=
+	'''
+	```{{{#language}}}
+	{{{#task.context}}}```
+	'''
+	
+	task_answer_pretext :=
+	'''
+	```{{{#language}}}
+	{{{#task.pretext}}}
+	'''
+} 
+	
