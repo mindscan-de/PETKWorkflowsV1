@@ -6,6 +6,20 @@ package de.mindscan.aidsl.examples
 import aidsl.answers.AnswerAsJsonString
 import aidsl.lang.llmtasks.QATaskWithPretext
 
+workflow myworkflow () {
+	// Here comes the workflow a.k.a. program, which connects all
+	// the different llm tasks
+	
+	// for now we want to make sure, that the llmtask syntax is correct.
+	// idea
+	
+	// firstShotTranslation
+	// firstShotRefiner
+	// bestAnswerAndJsonExtractor
+	// proofreadBestAnswerAndExtract
+	// translationRating
+}
+
 
 // TODO: make an annotation, such that the variables can be inferred and content assisted.
 // annotations provide defaults for required and optional variables
@@ -187,6 +201,3 @@ llmtask translationRating () implements @QATaskWithPretext {
 }
 
 
-workflow myworkflow () {
-	
-}
