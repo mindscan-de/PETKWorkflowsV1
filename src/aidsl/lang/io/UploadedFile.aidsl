@@ -3,9 +3,13 @@ package aisl.lang.io
 vmnode super UploadedFile {
 	opcode "ReadUploadedFile"
 	
-	in require file
+	in {
+		file
+	} 
 	
-	out file.name as string
-	out file.content.utf8 as string
-	out file.content.bytes as any
+	out {
+		file.name as string require file
+		file.content.utf8 as string require file
+		file.content.bytes as any require file
+	}
 }

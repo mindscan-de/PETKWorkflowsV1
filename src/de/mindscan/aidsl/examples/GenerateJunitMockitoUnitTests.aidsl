@@ -17,7 +17,7 @@ package de.mindscan.aidsl.examples
 // 		// arrange
 
 
-llmtask generateUnitest() {
+llmtask generateUnitest() implements @QATaskWithPretext {
 	system_prompt :=
 	'''
 	You are an expert in writing java code and junit4 based unit tests.
@@ -26,7 +26,7 @@ llmtask generateUnitest() {
   	Don't use any setUp-method because it is shared initialization. 
 	Do not annotate methods with @Before. 
 	Do all setup in the test itself.
-	Do not explain. 
+	Do not explain the code. 
 	'''
 	
 	task_query :=

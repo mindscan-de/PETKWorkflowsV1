@@ -15,6 +15,8 @@ vmnode super QATaskWithPretext {
 	// TODO
 	// optional array[string] extra_stopwords default []
 	
-	out local.model_task as string
-	out result.llm.response.content as string
+	out {
+		local.model_task as string
+		result.llm.response.content as string
+	}
 }

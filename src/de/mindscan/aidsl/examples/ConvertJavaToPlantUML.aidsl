@@ -1,0 +1,14 @@
+/**
+ * Idea is to have some workflows which help with reverse engineering
+ * legacy codebases. One part of the legacy codebases is software
+ * forensics of stuff which has little documentation of the truth.
+ */
+ 
+package de.mindscan.aidsl.examples
+
+import aidsl.lang.llmtasks.QATaskWithPretext
+
+llmtask ConvertJavaToPlantUML () implements @QATaskWithPretext {
+	
+	
+}
