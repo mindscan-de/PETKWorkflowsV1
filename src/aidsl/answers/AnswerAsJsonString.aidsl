@@ -9,5 +9,7 @@ vmnode overlay AnswerAsJsonString {
 	'''
 	
 	// override theresult type
-	out result.llm.response.content as jsonstring
+	out { 
+		result.llm.response.content as jsonstring
+	}
 }
