@@ -55,7 +55,6 @@ llmtask firstShotTranslation() implements @QATaskWithPretext {
 	日本語(簡単):
 	'''
 	
-	// TODO: return configuration or none, because the real magic should happen in the workflow
 }
 
 llmtask firstShotRefiner() implements @QATaskWithPretext {
@@ -90,7 +89,6 @@ llmtask firstShotRefiner() implements @QATaskWithPretext {
 	Improved Japanese Answer:
 	'''
 	
-	// TODO: return configuration, maybe none at all and define the result variables 
 }
 
 llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJsonString {
