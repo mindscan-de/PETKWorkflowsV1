@@ -4,16 +4,23 @@ vmnode super QATaskWithPretext {
 	
 	opcode "AITaskTemplate"
 	
-	require string system_prompt default ""
-	require string task_query
-	require string task_context_template
-	require string task_answer_pretext
+	fields {
+		require string system_prompt default ""
+		require string task_query
+		require string task_context_template
+		require string task_answer_pretext
+		
+		optional string short_task_header default ""
+		optional string version default ""
+		
+		// TODO
+		// optional string[] extra_stopwords default []
+	}
 	
-	optional string short_task_header default ""
-	optional string version default ""
 	
-	// TODO
-	// optional array[string] extra_stopwords default []
+	in {
+		// none
+	}
 	
 	out {
 		local.model_task as string
