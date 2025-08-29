@@ -10,7 +10,7 @@ vmnode super Boolean {
 	out {
 		true as boolean
 		false as boolean
-		not as boolean
+		not as boolean require fromValue
 		asBoolean as boolean require fromValue
 	}
 	
