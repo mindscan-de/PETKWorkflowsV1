@@ -10,7 +10,7 @@ import aidsl.lang.llmtasks.QATaskWithPretext
 // TODO: 
 // because we will only compile workflows, we will just reference the workflowss here and deal with the other intgeresting stuff later
 // 
-workflow myworkflow () {
+workflow EnglishToJapaneseTranslator () {
 	// Here comes the workflow a.k.a. program, which connects all
 	// the different llm tasks
 	
