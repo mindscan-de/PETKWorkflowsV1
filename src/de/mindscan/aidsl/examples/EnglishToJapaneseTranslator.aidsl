@@ -6,18 +6,20 @@ package de.mindscan.aidsl.examples
 import aidsl.answers.AnswerAsJsonString
 import aidsl.lang.llmtasks.QATaskWithPretext
 
+
+// TODO: 
+// because we will only compile workflows, we will just reference the workflowss here and deal with the other intgeresting stuff later
+// 
 workflow myworkflow () {
 	// Here comes the workflow a.k.a. program, which connects all
 	// the different llm tasks
 	
-	// for now we want to make sure, that the llmtask syntax is correct.
-	// idea
-	
-	// firstShotTranslation
-	// firstShotRefiner
-	// bestAnswerAndJsonExtractor
-	// proofreadBestAnswerAndExtract
-	// translationRating
+	firstShotTranslation() ;
+	firstShotRefiner() ;
+	bestAnswerAndJsonExtractor() ;
+	proofreadBestAnswerAndExtract () ;
+	translationRating () ;
+
 }
 
 
