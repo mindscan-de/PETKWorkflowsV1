@@ -1,0 +1,21 @@
+package aidsl.lang.asserts
+
+vmnode super AssertFail {
+	opcode "ASSERT_FAIL"
+
+	in {
+	}
+	
+	out {
+	}
+}
+
+vmnode super AssertSuccess {
+	opcode "ASSERT_SUCCESS"
+
+	in {
+	}
+	
+	out {
+	}
+}
