@@ -27,6 +27,8 @@ workflow EnglishToJapaneseTranslator () {
 // annotations provide defaults for required and optional variables
 // annotations should provide info about return variables.
 llmtask firstShotTranslation() implements @QATaskWithPretext {
+	short_task_header := "#### Task 1 - 1st shot translation"
+	
 	// TODO: do the extra_stopword definition and grammar
 	
 	system_prompt := 
@@ -60,6 +62,7 @@ llmtask firstShotTranslation() implements @QATaskWithPretext {
 }
 
 llmtask firstShotRefiner() implements @QATaskWithPretext {
+	short_task_header := "#### Task 2 - 1st shot refiner"
 	
 	system_prompt :=
 	'''
@@ -94,6 +97,7 @@ llmtask firstShotRefiner() implements @QATaskWithPretext {
 }
 
 llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJsonString {
+	short_task_header := "#### Task 3 - Extract"
 	
 	system_prompt := ""
 	
@@ -131,6 +135,8 @@ llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJso
 
 // TODO: some 
 llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAsJsonString {
+	short_task_header := "#### Task 4 - Proofread Answer"
+	
 	system_prompt := 
 	'''
 	You are a Japanese language teacher for beginners and intermediate language learning adults. 
@@ -173,6 +179,8 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 }
 
 llmtask translationRating () implements @QATaskWithPretext {
+	short_task_header := "#### Task 5 - Answer rating"
+	
 	system_prompt := 
 	'''
 	You are an experienced translator between the English and Japanese Language.
