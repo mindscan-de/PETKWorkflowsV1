@@ -22,6 +22,21 @@ workflow EnglishToJapaneseTranslator () {
 
 }
 
+datadictionary {
+	// see: bestAnswerAndJsonExtractor
+	data expectedResultStructure {
+		// english : "The English translation goes here",
+		// japanese : "The best Japanese translation goes here"
+	}
+	
+	// see: proofreadBestAnswerAndExtract
+	data expectedFullResultStructure {
+		// english : "The English translation goes here",
+		// japanese : "The best Japanese translation goes here",
+		// kana : "The Japanese kana (hiragana) reading for the translation goes here, for simplicity add spaces between words"
+	}
+}
+
 
 // TODO: make an annotation, such that the variables can be inferred and content assisted.
 // annotations provide defaults for required and optional variables
