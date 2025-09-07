@@ -134,18 +134,6 @@ llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJso
 	'''
 	
 	
-	/*
-	 * This should be implied by @AnswerAsJSonString
-	 */
-	 
-	/**
-	task_answer_pretext :=
-	'''
-	Answer:
-	```json
-	'''
-	*  
-	*/
 }
 
 // TODO: some 
@@ -179,18 +167,6 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 	{{{#printJsonStructure:expectedFullResultStructure}}}
 	'''
 	
-	/*
-	 * This should be implied by @AnswerAsJSonString
-	 */
-	 
-	/**
-	task_answer_pretext :=
-	'''
-	Answer:
-	```json
-	'''
-	*  
-	*/
 }
 
 llmtask translationRating () implements @QATaskWithPretext {
