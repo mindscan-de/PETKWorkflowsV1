@@ -148,7 +148,7 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 	Task: Proof-read the following given translation.
 	'''
 	
-	task_contect_template :=
+	task_context_template :=
 	'''
 	```json
 	{{{#task3.result}}}```
