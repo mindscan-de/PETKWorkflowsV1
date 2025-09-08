@@ -30,7 +30,7 @@ datadictionary {
 	}
 	
 	// see: proofreadBestAnswerAndExtract
-	data expectedFullResultStructure /* extends expectedResultStructure */{
+	data expectedFullResultStructure extends expectedResultStructure {
 		english : "The English translation goes here"
 		japanese : "The best Japanese translation goes here"
 		kana : "The Japanese kana (hiragana) reading for the translation goes here, for simplicity add spaces between words"
