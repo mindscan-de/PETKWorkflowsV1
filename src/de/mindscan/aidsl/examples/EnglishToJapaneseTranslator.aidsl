@@ -38,9 +38,6 @@ datadictionary {
 }
 
 
-// TODO: make an annotation, such that the variables can be inferred and content assisted.
-// annotations provide defaults for required and optional variables
-// annotations should provide info about return variables.
 llmtask firstShotTranslation() implements @QATaskWithPretext {
 	short_task_header := "#### Task 1 - 1st shot translation"
 	
@@ -136,7 +133,6 @@ llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJso
 	
 }
 
-// TODO: some 
 llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAsJsonString {
 	short_task_header := "#### Task 4 - Proofread Answer"
 	
