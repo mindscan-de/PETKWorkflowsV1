@@ -14,11 +14,28 @@ workflow EnglishToJapaneseTranslator () {
 	// Here comes the workflow a.k.a. program, which connects all
 	// the different llm tasks
 	
-	firstShotTranslation() ;
-	firstShotRefiner() ;
-	bestAnswerAndJsonExtractor() ;
-	proofreadBestAnswerAndExtract () ;
-	translationRating () ;
+	firstShotTranslation() => {
+		local.model_task : task1.task
+		result.llm.response.content : task1.result
+	} ;
+	firstShotRefiner() => {
+		local.model_task : task2.task
+		result.llm.response.content : task2.result
+	} ;
+	bestAnswerAndJsonExtractor() => {
+		local.model_task : task3.task
+		result.llm.response.constent : task3.result
+	};
+	proofreadBestAnswerAndExtract() => {
+		local.model_task : task4.task
+		result.llm.response.constent : task4.result
+		result.llm.response.constent : en2ja_result
+	};
+	translationRating () => {
+		local.model_task : task5.task
+		result.llm.response.constent : task5.result
+		result.llm.response.constent : en2ja_quality
+	};
 
 }
 
@@ -68,7 +85,6 @@ llmtask firstShotTranslation() implements @QATaskWithPretext {
 	'''
 	日本語(簡単):
 	'''
-	
 }
 
 llmtask firstShotRefiner() implements @QATaskWithPretext {
@@ -103,7 +119,6 @@ llmtask firstShotRefiner() implements @QATaskWithPretext {
 	'''
 	Improved Japanese Answer:
 	'''
-	
 }
 
 llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJsonString {
@@ -127,8 +142,6 @@ llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJso
 	REMINDER:
 	* USE preferably simple and correct Japanese phrases.
 	'''
-	
-	
 }
 
 llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAsJsonString {
@@ -147,7 +160,7 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 	'''
 
 	task_query :=
-	''''
+	'''
 	Task: Proof-read the following given translation.
 	'''
 	
@@ -160,7 +173,6 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 	
 	{{{#printJsonStructure:expectedFullResultStructure}}}
 	'''
-	
 }
 
 llmtask translationRating () implements @QATaskWithPretext {
