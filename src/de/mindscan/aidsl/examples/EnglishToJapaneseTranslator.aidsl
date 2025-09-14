@@ -8,33 +8,33 @@ import aidsl.lang.llmtasks.QATaskWithPretext
 
 
 // TODO: 
-// because we will only compile workflows, we will just reference the workflowss here and deal with the other intgeresting stuff later
+// because we will only compile workflows, we will just reference the workflowss here and deal with the other interesting stuff later
 // 
 workflow EnglishToJapaneseTranslator () {
 	// Here comes the workflow a.k.a. program, which connects all
 	// the different llm tasks
 	
 	firstShotTranslation() => {
-		local.model_task : task1.task
-		result.llm.response.content : task1.result
-	} ;
+		task1.task   : local.model_task
+		task1.result : result.llm.response.content 
+	};
 	firstShotRefiner() => {
-		local.model_task : task2.task
-		result.llm.response.content : task2.result
-	} ;
+		task2.task   : local.model_task
+		task2.result : result.llm.response.content 
+	};
 	bestAnswerAndJsonExtractor() => {
-		local.model_task : task3.task
-		result.llm.response.constent : task3.result
+		task3.task   : local.model_task
+		task3.result : result.llm.response.content 
 	};
 	proofreadBestAnswerAndExtract() => {
-		local.model_task : task4.task
-		result.llm.response.constent : task4.result
-		result.llm.response.constent : en2ja_result
+		task4.task   : local.model_task
+		task4.result : result.llm.response.content
+		en2ja_result : result.llm.response.content
 	};
 	translationRating () => {
-		local.model_task : task5.task
-		result.llm.response.constent : task5.result
-		result.llm.response.constent : en2ja_quality
+		task5.task    : local.model_task
+		task5.result  : result.llm.response.content
+		en2ja_quality : result.llm.response.content
 	};
 
 }
@@ -150,13 +150,13 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 	system_prompt := 
 	'''
 	You are a Japanese language teacher for beginners and intermediate language learning adults. 
-	Your master skill is to read the Japanese parts ('japanese','kana','romaji') and transcribe it to kana (hiragana and katakana) and for foreigners to romaji.
+	Your master skill is to read the Japanese parts ('japanese','kana') and transcribe it to kana (hiragana and katakana).
 
 	REMINDER
 	* ONLY do corrections IF absolutely necessary
 	* DON'T introduce new errors while proof-reading
 	* provide a kana reading based on hiragana script
-	* USE white spaces for romaji and kana ONLY between words to help English speakers.
+	* USE white spaces between words to help English speakers.
 	'''
 
 	task_query :=
