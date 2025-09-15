@@ -52,11 +52,10 @@ datadictionary {
 	}
 }
 
-ui {
-	user.input : {
-		label     "English"
-		uitype    "textfield"
-		datatype  "string"
+datainput {
+	user.input : string	ui { 
+		label  "English" 
+		uitype "textfield"
 	}
 }
 
