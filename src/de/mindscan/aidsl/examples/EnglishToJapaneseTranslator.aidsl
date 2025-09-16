@@ -11,7 +11,7 @@ import aidsl.lang.llmtasks.QATaskWithPretext
 // because we will only compile workflows, we will just reference the workflowss here and deal with the other interesting stuff later
 // 
 // TODO: reference the data dictionary
-workflow EnglishToJapaneseTranslator ( en2jp_input ) {
+workflow EnglishToJapaneseTranslator ( en2jp_input , en2jp_dictionary ) {
 	
 	firstShotTranslation() => {
 		task1.task   : local.model_task
@@ -38,7 +38,7 @@ workflow EnglishToJapaneseTranslator ( en2jp_input ) {
 
 }
 
-datadictionary {
+datadictionary en2jp_dictionary {
 	// see: bestAnswerAndJsonExtractor
 	data expectedResultStructure {
 		english : "The English translation goes here" 
