@@ -40,15 +40,16 @@ workflow EnglishToJapaneseTranslator ( en2jp_input , en2jp_dictionary ) {
 
 datadictionary en2jp_dictionary {
 	// see: bestAnswerAndJsonExtractor
-	data expectedResultStructure {
+	expectedResultStructure : {
 		english : "The English translation goes here" 
 		japanese : "The best Japanese translation goes here"
 	}
 	
 	// see: proofreadBestAnswerAndExtract
-	data expectedFullResultStructure extends expectedResultStructure {
+	expectedFullResultStructure extends expectedResultStructure : {
 		kana : "The Japanese kana (hiragana) reading for the translation goes here, for simplicity add spaces between words"
 	}
+
 }
 
 datainput en2jp_input {
