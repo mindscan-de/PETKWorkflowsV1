@@ -7,10 +7,13 @@ import aidsl.answers.AnswerAsJsonString
 import aidsl.lang.llmtasks.QATaskWithPretext
 
 
-// TODO: 
-// because we will only compile workflows, we will just reference the workflowss here and deal with the other interesting stuff later
-// 
-workflow EnglishToJapaneseTranslator ( en2jp_input , en2jp_dictionary ) {
+/**
+ * This is a simple and linear workflow using multiple LLM interactions
+ * to calculate a Japanese translation from English. This workflow needs
+ * the en2jp input, for this workflow and a data dictionary for structures 
+ * and constants.
+ */
+workflow EnglishToJapaneseTranslator ( en2jp_input, en2jp_dictionary ) {
 	
 	firstShotTranslation() => {
 		task1.task   : local.model_task
@@ -51,12 +54,14 @@ datadictionary en2jp_dictionary {
 
 }
 
+// The input is basically split into two parts, the variable and the type, and its potential UI part if needed 
 datainput en2jp_input {
 	user.input : string	ui { 
 		label  "English" 
 		uitype "textfield"
 	}
 }
+
 
 
 llmtask firstShotTranslation() implements @QATaskWithPretext {
