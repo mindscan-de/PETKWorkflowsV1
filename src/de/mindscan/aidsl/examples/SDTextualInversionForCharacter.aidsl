@@ -2,7 +2,7 @@ package de.mindscan.aidsl.examples
 
 import aidsl.lang.llmtasks.QATaskWithPretext
 
-workflow SDTextualInversionPerson(sdtiperson_input, sdtiperson_dictionary) {
+workflow SDTextualInversionForCharacter(sdtiperson_input, sdtiperson_dictionary) {
 	
 	
 	// this is some language node
