@@ -1,0 +1,43 @@
+package de.mindscan.aidsl.examples
+
+workflow SDTextualInversionPerson(sdtiperson_input, sdtiperson_dictionary) {
+	
+	// processFileContent();
+	// cleanupCharacterLabels();
+	// cleanupPhotographicRealismLabels();
+	// calculateDifference();
+	// renderOutputfileContent();
+	
+}
+
+
+datadictionary sdtiperson_dictionary {
+	outputTemplate : 
+	'''
+	{{{#trim:cleaned.labels}}}
+
+	removed labels:
+	{{{#trim:removed.labels}}}
+	'''
+}
+
+
+datainput sdtiperson_input {
+	character.labels.toprune : string ui {
+		label "Tags describing the character"
+		uitype "textfield"
+	}
+	
+	target.realism : string ui {
+		label "arget Realism"
+		uitype "selectone"
+		default "anime"
+		options ["anime", "real"]
+	}
+	
+	input.danbooru.file : upload ui {
+		label  "Upload generated Danbooru tagfile"
+		uitype "singlefileupload"
+	}
+}
+
