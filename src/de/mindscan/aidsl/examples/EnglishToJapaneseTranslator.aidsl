@@ -62,7 +62,8 @@ datainput en2jp_input {
 llmtask firstShotTranslation() implements @QATaskWithPretext {
 	short_task_header := "#### Task 1 - 1st shot translation"
 	
-	// TODO: do the extra_stopword definition and grammar
+	// TODO: enable this value feature also for llm task nodes
+	// extra_stopwords := ["```", "\\n\\n", "\u3000\u3000\u3000","==="]
 	
 	system_prompt := 
 	''' 
@@ -130,6 +131,9 @@ llmtask firstShotRefiner() implements @QATaskWithPretext {
 llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJsonString {
 	short_task_header := "#### Task 3 - Extract"
 	
+	// TODO: enable this?
+	// extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
+	
 	system_prompt := ""
 	
 	task_query :=
@@ -183,6 +187,9 @@ llmtask proofreadBestAnswerAndExtract() implements @QATaskWithPretext, @AnswerAs
 
 llmtask translationRating () implements @QATaskWithPretext {
 	short_task_header := "#### Task 5 - Answer rating"
+	
+	// TODO: enable this?
+	// extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
 	
 	system_prompt := 
 	'''
