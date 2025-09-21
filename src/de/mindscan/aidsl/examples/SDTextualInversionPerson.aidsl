@@ -1,11 +1,35 @@
 package de.mindscan.aidsl.examples
 
+import aidsl.lang.llmtasks.QATaskWithPretext
+
 workflow SDTextualInversionPerson(sdtiperson_input, sdtiperson_dictionary) {
 	
+	
+	// this is some language node
 	// processFileContent();
-	// cleanupCharacterLabels();
-	// cleanupPhotographicRealismLabels();
-	// calculateDifference();
+	
+	cleanupCharacterLabels()=>{
+		remaining.scene.general.labels : result.llm.response.content
+	};
+	
+	// we should decide, whether the current description is realism or anime, and whether we need to process the labels at all...
+	
+	// if target is realism, we need to remove all references to realism
+	// either two different options use one cleanup parameterized by a label list or two different prompts
+		cleanupPhotographicRealismLabels() => {
+			cleaned.labels : result.llm.response.content
+		};
+	// else if target is anime realism
+		// cleanupAnimeLabels();
+	
+	
+	
+	calculateDifference() => {
+		removed.labels : result.llm.response.content
+	};
+	
+	// double check...
+	// this is some language node
 	// renderOutputfileContent();
 	
 }
@@ -29,7 +53,7 @@ datainput sdtiperson_input {
 	}
 	
 	target.realism : string ui {
-		label "arget Realism"
+		label "Target Realism"
 		uitype "selectone"
 		default "anime"
 		options ["anime", "real"]
@@ -40,4 +64,125 @@ datainput sdtiperson_input {
 		uitype "singlefileupload"
 	}
 }
+
+
+llmtask cleanupCharacterLabels() implements @QATaskWithPretext {
+	short_task_heder := "#### Task 1 - Remove character tags"
+	
+	// TODO: enable this later
+	// extra_stopwords :=  [ "\n\n" ]
+	
+	system_prompt := 
+	'''
+	You are a helpful assistant for processing generated labels for images. Your job is to process the labels according to these Rules
+	'''
+	
+	task_query := 
+	'''
+	Just process the labels, don't generate code.
+	'''
+
+	task_context_template :=
+	'''
+	### Rules 
+
+	* KEEP LABELS describing the scene
+	* KEEP LABELS related to scene composition, e.g. close-up, full body, portrait, looking at viewer, depth of field, solo, shiny [...] 
+	* KEEP LABELS related to removable clothing, e.g. colored panties, underwear, bikini, eyewear, sportswear, swimwear, swimsuit, hats, [...] etc... 
+	* KEEP EVERY LABEL, which doesn't fit the category to be removed.
+	* REMOVE LABEL '1girl', from the list of labels and
+	* REMOVE LABELS describing the appearance of a person, e.g. fingernails, hair color, length of hair,  hair length, breasts, breast size, eye color, nose, lips, navel, teeth, [...] and such  
+
+
+	### Reminder
+
+	* DON'T remove labels which aren't meant to be removed according to the Rules.
+	* DON'T answer with code.
+	* DON'T comment, just answer with a list.
+
+	
+	List of generated Labels: {{{#input.danbooru.labels}}} .
+	'''
+	
+	task_answer_oretext := 
+	'''
+	List of remaining Labels (comma separated): 
+	'''
+} 	
+
+
+llmtask cleanupPhotographicRealismLabels() implements @QATaskWithPretext {
+	shot_task_header := "#### Task 2 - Remove photographic and realistic tags"
+	
+	// TODO: enable this later
+	// extra_stopwords :=  [ "\n\n" ]
+
+	system_prompt :=
+	'''
+	You are a helpful assistant for processing generated labels for images. Your job is to process the labels according to these Rules:
+	'''
+
+	task_query :=
+	'''
+	Just process the labels, don't generate code.
+	'''
+
+	task_context_template :=
+	'''
+	### Rules:
+
+	* keep labels describing the scene and
+	* keep labels related to low quality properties, e.g. blurry, ...
+	* keep labels related to the scene composition, e.g. looking at viewer, depth of field, ... 
+	* keep every label related to clothing, e.g.  colored panties, underwear, sportswear, hats, eyewear ... and such 
+	* keep every label, which doesn't fit the category to be removed.
+	* remove labels related to only high quality photographic properties, photorealism, reality and realism, e.g. 3d, photo, realistic, detailled, ...
+
+	
+	### Reminder
+
+	* DON'T remove labels which aren't meant to be removed according to the Rules.
+	* DON'T answer with code.
+	* DON'T comment, just answer with a list.
+	
+	List of generated Labels: {{{#remaining.scene.general.labels}}} . 
+	'''	
+	
+	task_answer_pretext := 
+	'''
+	List of remaining Labels (comma separated): 
+	'''
+	
+}
+
+llmtask calculateDifference() implements @QATaskWithPretext {
+	shot_task_header := "#### Task 3 - Calculate the difference for reference"
+	
+	// TODO: enable this later
+	// extra_stopwords :=  [ "\n\n" ]
+
+	system_prompt :=
+	'''
+	You are a helpful assistant for processing generated labels for images. Your job is to either process, keep or remove the labels according to these Rules
+	'''
+	
+	task_query :=
+	'''
+	Calculate the removed Labels. Just process the labels, don't generate code.
+	'''
+	
+	task_context_template :=
+	'''
+	List of unprocessed labels: {{{#input.danbooru.labels}}} .
+
+	List of remaining labels: {{{#cleaned.labels}}} .
+	'''
+
+	task_answer_pretext := 
+	'''
+	List of removed Labels  (comma separated): 
+	'''
+	
+}
+
 
