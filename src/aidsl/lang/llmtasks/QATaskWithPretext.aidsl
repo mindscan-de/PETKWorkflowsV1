@@ -13,9 +13,7 @@ vmnode super QATaskWithPretext {
 		require string task_context_template
 		require string task_answer_pretext
 		
-		
-		// TODO
-		// optional string[] extra_stopwords default []
+		optional string[] extra_stopwords default []
 	}
 	
 	
