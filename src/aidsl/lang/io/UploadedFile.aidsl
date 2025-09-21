@@ -10,6 +10,6 @@ vmnode super UploadedFile {
 	out {
 		file.name as string require file
 		file.content.utf8 as string require file
-		file.content.bytes as any require file
+		file.content.bytes as byte[] require file
 	}
 }
