@@ -41,6 +41,7 @@ workflow EnglishToJapaneseTranslator ( en2jp_input, en2jp_dictionary ) {
 }
 
 datadictionary en2jp_dictionary {
+	
 	// see: bestAnswerAndJsonExtractor
 	expectedResultStructure : {
 		english : "The English translation goes here" 
@@ -51,8 +52,8 @@ datadictionary en2jp_dictionary {
 	expectedFullResultStructure extends expectedResultStructure : {
 		kana : "The Japanese kana (hiragana) reading for the translation goes here, for simplicity add spaces between words"
 	}
-
 }
+
 
 // The input is basically split into two parts, the variable and the type, and its potential UI part if needed 
 datainput en2jp_input {
@@ -68,7 +69,7 @@ llmtask firstShotTranslation() implements @QATaskWithPretext {
 	short_task_header := "#### Task 1 - 1st shot translation"
 	
 	// TODO: enable this value feature also for llm task nodes
-	// extra_stopwords := ["```", "\\n\\n", "\u3000\u3000\u3000","==="]
+	extra_stopwords := ["```", "\\n\\n", "\u3000\u3000\u3000","==="]
 	
 	system_prompt := 
 	''' 
@@ -137,7 +138,7 @@ llmtask bestAnswerAndJsonExtractor() implements @QATaskWithPretext, @AnswerAsJso
 	short_task_header := "#### Task 3 - Extract"
 	
 	// TODO: enable this?
-	// extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
+	extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
 	
 	system_prompt := ""
 	
@@ -194,7 +195,8 @@ llmtask translationRating () implements @QATaskWithPretext {
 	short_task_header := "#### Task 5 - Answer rating"
 	
 	// TODO: enable this?
-	// extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
+	
+	extra_stopwords := ["```", "\u3000\u3000\u3000","====="]
 	
 	system_prompt := 
 	'''
