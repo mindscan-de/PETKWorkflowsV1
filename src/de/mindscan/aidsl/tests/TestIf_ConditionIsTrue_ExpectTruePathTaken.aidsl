@@ -1,0 +1,24 @@
+package de.mindscan.aidsl.tests
+
+datadictionary valueToTestIsBooleanTrue{
+	valueToTest : true
+}
+
+datainput _ {
+	
+}
+
+
+// We want to test the if statement, that the then block is executed
+workflow TestIf_ConditionIsTrue_ExpectTruePathTaken(_, valueToTestIsBooleanTrue) {
+	
+	if( valueToTest ) {
+		AssertSuccess();
+	}
+	else {
+		AssertFail();
+	}
+	
+	AssertFail();
+}
+
