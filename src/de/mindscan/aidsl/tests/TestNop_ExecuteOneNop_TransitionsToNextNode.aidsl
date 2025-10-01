@@ -1,0 +1,15 @@
+package de.mindscan.aidsl.tests
+
+datadictionary _ {
+}
+
+datainput _ {
+	
+}
+
+
+workflow TestNop_ExecuteOneNop_TransitionsToNextNode(_, _) {
+	Nop();
+	AssertSuccess();
+}
+
