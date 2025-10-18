@@ -1,0 +1,39 @@
+package de.mindscan.aidsl.tests
+
+datadictionary _ {
+}
+
+datainput _ {
+}
+
+
+// We want to test whether A Boolean False is actually a False
+workflow TestBoolean_ReturnStateTrue_ExpectTrue(_, _) {
+	
+//	if( Boolean.True ) {
+//		AssertSuccess();
+//	}
+//	else {
+//		AssertFail();
+//	}
+//	
+//	AssertFail();
+
+}
+
+simpleaidsl  test {
+	
+	boolean bar() {
+		if( true ) {
+			// AssertSuccess();
+		}
+		else {
+			// AssertFail();
+		}
+		
+		// AssertFail();
+	}
+
+	
+}
+
